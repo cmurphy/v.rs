@@ -140,7 +140,9 @@ impl Universe {
                     Cell::Alive
                 } else if row > 16 && row <= 24 && ((column > 1 && column < width/4) || ( column > 3*width/4 && column < width - 1)) {
                     Cell::Alive
-                } else if row > 24 && column > row-24 && column < (width - row + 24) {
+                } else if row > 24 && row <= 32 && column > row-24 && column < (width - row + 24) && ((column > 1 && column < width/4) || ( column > 3*width/4 && column < width - 1)) {
+                    Cell::Alive
+                } else if row > 32 && column > row-24 && column < (width - row + 24) {
                     Cell::Alive
                 } else {
                     Cell::Dead
