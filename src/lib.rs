@@ -134,6 +134,44 @@ impl Universe {
         let idx = self.get_index(row, column);
         self.cells[idx].toggle();
     }
+
+    pub fn add_glider(&mut self, row: u32, column: u32) {
+        for delta_row in [self.height - 1, 0, 1].iter().cloned() {
+            for delta_col in [self.width - 1, 0, 1].iter().cloned() {
+                let neighbor_row = (row + delta_row) % self.height;
+                let neighbor_col = (column + delta_col) % self.width;
+                let idx = self.get_index(neighbor_row, neighbor_col);
+                if delta_row == 1 && delta_col == self.width - 1 {
+                    self.cells[idx] = Cell::Dead;
+                    continue
+                }
+                if delta_row == 1 && delta_col == 0 {
+                    self.cells[idx] = Cell::Alive;
+                    continue
+                }
+                if delta_row == 1 && delta_col == 1 {
+                    self.cells[idx] = Cell::Dead;
+                    continue
+                }
+                if delta_row == 0 && delta_col == self.width - 1 {
+                    self.cells[idx] = Cell::Dead;
+                    continue
+                }
+                if delta_row == 0 && delta_col == 0 {
+                    self.cells[idx] = Cell::Dead;
+                    continue
+                }
+                if delta_row == 0 && delta_col == 1 {
+                    self.cells[idx] = Cell::Alive;
+                    continue
+                }
+                if delta_row == self.height - 1 {
+                    self.cells[idx] = Cell::Alive;
+                    continue
+                }
+            }
+        }
+    }
 }
 
 impl Cell {
